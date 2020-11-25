@@ -1,0 +1,77 @@
+﻿@model ProiectBun.Models.Product
+@{
+    ViewBag.Title = "Show";
+}
+
+<br />
+<a href="/Products/Index">Inapoi la produse</a>
+<br />
+<a class="btn btn-info" href="/Products/New">Adauga produs</a>
+<br />
+<div class="panel panel-default">
+    <div class="panel-heading">@Model.Title</div>
+    <div class="panel-body">
+        Descriere produs: <strong>@Model.Description</strong>
+        <br />
+        <i class="fas fa-dollar-sign"></i> @product.Price
+        <br />
+        <i class="glyphicon glyphicon-globe"></i> @Model.Category.Name
+        <br />
+        <hr>
+        <a class="btn btn-success pull-left" href="/Products/Edit/@Model.Id">Modifica produsul</a>
+        <form method="post" action="/Products/Delete/@Model.Id">
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button class="btn btn-danger pull-right" type="submit">Sterge produsul</button>
+        </form>
+    </div>
+</div>
+
+<br />
+@foreach (var rev in Model.Reviews)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div>
+                    <p>@rev.Comment</p>
+                    <small class="pull-right">@rev.Date</small>
+                </div>
+                <div style="display: inline-block; float : left; margin-right: 15px">
+                    <a class="glyphicon glyphicon-pencil" href="/Reviews/Edit/@rev.Id"></a>
+                </div>
+                <div style="display: inline-block; float : left">
+                    <form method="post" action="/Reviews/Delete/@rev.Id">
+                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                        <button class="glyphicon glyphicon-trash" style="border: none; background: transparent" type="submit"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <hr />
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="panel">
+                <form method="post" action="/Reviews/New">
+                    <div class="panel-body">
+                        <input type="hidden" name="Id" value="@Model.Id" />
+                        <label>Continut comentariu</label>
+                        <br />
+                        <textarea class="form-control" name="Content"></textarea>
+                        <br />
+                        <button class="btn btn-success " type="submit">Adauga review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>

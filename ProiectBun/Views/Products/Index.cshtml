@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<h1>@ViewBag.Message</h1>
+<h2>Products</h2>
+
+<a class="btn btn-primary" href="/Categories/Index">Afisare categorii</a>
+<a class="btn btn-primary" href="/Products/New">Adauga produs</a>
+<br />
+
+@foreach (var product in ViewBag.Products)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">@product.Title</div>
+        <div class="panel-body">
+            Descriere produs: <strong>@product.Description</strong>
+            <br />
+            <i class="fas fa-dollar-sign"></i> @product.Price
+            <br />
+            <i class="glyphicon glyphicon-globe"></i> @product.Category.Name
+        </div>
+        <div class="panel-footer">
+            <a class=" btn btn-sm btn btn-success" href="/Products/Show/@product.Id">Afisare produs</a>
+        </div>
+    </div>
+}
