@@ -4,15 +4,30 @@
 }
 
 <h2>Editare review</h2>
-<form method="post" action="/Reviews/Edit/@Model.Id">
-    @Html.HttpMethodOverride(HttpVerbs.Put)
-    <label>Continut review</label>
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Reviews"))
+{
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.Id)
     <br />
-    <textarea name="Comment">@Model.Comment</textarea>
-    <br /><br />
-    @Html.Label("Rating")
+
+    @Html.Label("Comment", "Comentariu: ")
     <br />
-    @Html.Editor("Rating", new { htmlAttributes = new { @class = "form-control"} })
+    @Html.EditorFor(m => m.Comment)
+    @Html.ValidationMessageFor(m => m.Comment, "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    @Html.Label("Rating", "Rating: ")
+    <br />
+    @Html.EditorFor(m => m.Rating)
+    @Html.ValidationMessageFor(m => m.Rating, "", new { @class = "text-danger" })
+
+    <br />
+    <br />
+
     <button class="btn btn-success" type="submit">Editeaza comentariu</button>
-</form>
+}
+
 

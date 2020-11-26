@@ -16,11 +16,13 @@ namespace ProiectBun.Models
         public string Title { get; set;}
         
         [Required(ErrorMessage = "Descrierea produsului este obligatorie")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         
         [Required(ErrorMessage = "Pretul produsului este obligatoriu")]
-        public double Price { get; set; }
-        
+        [Range(1,999.99)]
+        public decimal Price { get; set; }
+        [Required(ErrorMessage = "Categoria este obligatorie")]
         public int CategoryId { get; set; }
         
         //public int ReviewId { get; set; }

@@ -2,17 +2,18 @@
 
 <h2>Editare categorie</h2>
 
-<form method="post" action="/Categories/Edit/@Model.Id">
+
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Categories"))
+{
 
     @Html.HttpMethodOverride(HttpVerbs.Put)
-
     @Html.HiddenFor(m => m.Id)
-
     @Html.Label("Name", "Denumire categorie")
     <br />
     @Html.Editor("Name")
-    <br /><br />
-
+    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    <br />
+    <br />
     <button class="btn btn-success" type="submit">Modifica categoria</button>
-</form>
-
+}

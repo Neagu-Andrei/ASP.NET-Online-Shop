@@ -41,12 +41,20 @@ namespace ProiectBun.Controllers
         [HttpPost]
         public ActionResult New(Product product)
         {
+            product.Categ = GetAllCategories();
             try
             {
-                db.Products.Add(product);
-                db.SaveChanges();
-                TempData["message"] = "Produsul a fost adaugat cu succes!";
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Products.Add(product);
+                    db.SaveChanges();
+                    TempData["message"] = "Produsul a fost adaugat cu succes!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(product);
+                }
             }
             catch (Exception e)
             {
@@ -64,18 +72,27 @@ namespace ProiectBun.Controllers
         [HttpPut]
         public ActionResult Edit(int id, Product requestProduct)
         {
+            requestProduct.Categ = GetAllCategories();
             try
             {
-                Product product = db.Products.Find(id);
-
-                if (TryUpdateModel(product))
+                if (ModelState.IsValid)
                 {
-                    product = requestProduct;
-                    db.SaveChanges();
-                    TempData["message"] = "Produsul a fost modificat cu succes!";
-                    return RedirectToAction("Index");
+                    Product product = db.Products.Find(id);
+
+                    if (TryUpdateModel(product))
+                    {
+                        product = requestProduct;
+                        db.SaveChanges();
+                        TempData["message"] = "Produsul a fost modificat cu succes!";
+                        return RedirectToAction("Index");
+                    }
+                    return View(requestProduct);
                 }
-                return View(requestProduct);
+                else
+                {
+                    return View(requestProduct);
+                }
+                
             }
             catch (Exception e)
             {

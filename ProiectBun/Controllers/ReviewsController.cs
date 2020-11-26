@@ -55,20 +55,27 @@ namespace ProiectBun.Controllers
         {
             try
             {
-                Review review = db.Reviews.Find(id);
-                if (TryUpdateModel(review))
+                if (ModelState.IsValid)
                 {
+                    Review review = db.Reviews.Find(id);
+                    if (TryUpdateModel(review))
+                    {
 
-                    review.Comment = requestReview.Comment;
-                    review.Rating = requestReview.Rating;
-                    review.Date = DateTime.Now;
-                    db.SaveChanges();
+                        review.Comment = requestReview.Comment;
+                        review.Rating = requestReview.Rating;
+                        review.Date = DateTime.Now;
+                        db.SaveChanges();
+                    }
+                    return Redirect("/Products/Show/" + review.ProductId);
                 }
-                return Redirect("/Products/Show/" + review.ProductId);
+                else
+                {
+                    return View(requestReview);
+                }
             }
             catch (Exception e)
             {
-                return View();
+                return View(requestReview);
             }
         }
     }

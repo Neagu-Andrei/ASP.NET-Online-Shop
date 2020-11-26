@@ -73,17 +73,24 @@ namespace ProiectBun.Controllers
         {
             try
             {
-                Category category = db.Categories.Find(id);
-
-                if (TryUpdateModel(category))
+                if (ModelState.IsValid)
                 {
-                    category.Name = requestCategory.Name;
-                    db.SaveChanges();
-                    TempData["message"] = "Categoria a fost modificata! cu succes";
-                    return RedirectToAction("Index");
-                }
+                    Category category = db.Categories.Find(id);
 
-                return View(requestCategory);
+                    if (TryUpdateModel(category))
+                    {
+                        category.Name = requestCategory.Name;
+                        db.SaveChanges();
+                        TempData["message"] = "Categoria a fost modificata! cu succes";
+                        return RedirectToAction("Index");
+                    }
+
+                    return View(requestCategory);
+                }
+                else
+                {
+                    return View(requestCategory);
+                }
             }
             catch (Exception e)
             {
