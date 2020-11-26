@@ -1,7 +1,29 @@
-﻿
-@{
-    ViewBag.Title = "New";
-}
+﻿@model ProiectBun.Models.Product
 
-<h2>New</h2>
 
+<h2>Adaugare articol</h2>
+<form method="post" action="/Products/New">
+
+    @Html.Label("Title", "Titlu Produs")
+    <br />
+    @Html.TextBox("Title", null, new { @class = "form-control" })
+    <br /><br />
+
+    @Html.Label("Description", "Descriere Produs")
+    <br />
+    @Html.TextArea("Description", null, new { @class = "form-control" })
+    <br /><br />
+
+    @Html.Label("Price", "Pretul Produsului")
+    <br />
+    @Html.TextBox("Price", null, new { @class = "form-control" })
+    <br /><br />
+
+    <label>Selectati categoria</label>
+    @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categ, "Value", "Text"),
+    "Selectati categoria", new { @class = "form-control" })
+    <br />
+
+    <button class="btn btn-sm btn-success" type="submit">Adauga produs</button>
+
+</form>

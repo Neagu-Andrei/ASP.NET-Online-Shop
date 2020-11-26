@@ -23,6 +23,7 @@ namespace ProiectBun.Controllers
         {
             Review rev = db.Reviews.Find(id);
             db.Reviews.Remove(rev);
+            db.SaveChanges();
             return Redirect("/Products/Show/" + rev.ProductId);
         }
 
@@ -58,11 +59,12 @@ namespace ProiectBun.Controllers
                 if (TryUpdateModel(review))
                 {
 
-                    review = requestReview;
+                    review.Comment = requestReview.Comment;
+                    review.Rating = requestReview.Rating;
                     review.Date = DateTime.Now;
                     db.SaveChanges();
                 }
-                return Redirect("/Product/Show/" + review.ProductId);
+                return Redirect("/Products/Show/" + review.ProductId);
             }
             catch (Exception e)
             {

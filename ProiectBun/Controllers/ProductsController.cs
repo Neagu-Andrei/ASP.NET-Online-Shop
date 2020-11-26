@@ -54,6 +54,13 @@ namespace ProiectBun.Controllers
             }
         }
 
+        public ActionResult Edit(int id)
+        {
+            Product product = db.Products.Find(id);
+            product.Categ = GetAllCategories();
+            return View(product);
+        }
+
         [HttpPut]
         public ActionResult Edit(int id, Product requestProduct)
         {
