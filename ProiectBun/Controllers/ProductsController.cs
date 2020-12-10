@@ -13,7 +13,7 @@ namespace ProiectBun.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            var products = db.Products.Include("Category");
+            var products = db.Products;
             ViewBag.Products = products;
             if (TempData.ContainsKey("message"))
             {
@@ -27,6 +27,7 @@ namespace ProiectBun.Controllers
         public ActionResult Show(int id)
         {
             Product product = db.Products.Find(id);
+            ViewBag.ProductRating = GetRating(product);
             return View(product);
         }
 
@@ -128,6 +129,19 @@ namespace ProiectBun.Controllers
             }
 
             return selectList;
+        }
+        
+        [NonAction]
+        public double GetRating(Product product)
+        {
+            var ratings = product.Reviews;
+            var selectList = new List<int>();
+            foreach (var rating in ratings)
+            {
+                selectList.Add(rating.Rating);
+            }
+            var productRating = selectList.Average();
+            return productRating;
         }
     }
 }

@@ -2,7 +2,10 @@
 @{
     ViewBag.Title = "Show";
 }
-
+<link href="~/Content/star-rating.css" media="all" rel="stylesheet" type="text/css" />
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+<script src="~/Scripts/star-rating.js" type="text/javascript"></script>
 <br />
 <a href="/Products/Index">Inapoi la produse</a>
 <br />
@@ -17,6 +20,7 @@
         <br />
         <i class="glyphicon glyphicon-globe"></i> @Model.Category.Name
         <br />
+        <input class="rating rating-loading" value="@ViewBag.ProductRating" data-min="0" data-max="5" data-step="0.1" data-disabled="true"/>
         <hr>
         <a class="btn btn-success pull-left" href="/Products/Edit/@Model.Id">Modifica produsul</a>
         <form method="post" action="/Products/Delete/@Model.Id">
@@ -35,7 +39,7 @@
             <div class="col-md-8">
                 <div>
                     <p>@rev.Comment</p>
-                    <p>@rev.Rating</p>
+                    <input class="rating rating-loading" value="@rev.Rating" data-min="0" data-max="5" data-step="1" data-disabled="true" data-size="sm">
                     <small class="pull-right">@rev.Date</small>
                 </div>
                 <div style="display: inline-block; float : left; margin-right: 15px">
@@ -68,9 +72,10 @@
                         <br />
                         <textarea class="form-control" name="Comment"></textarea>
                         <br />
-                        @Html.Label("Rating","Rating produs")
-                        @Html.TextBox("Rating", null, new { @class="form-control" })
+                        @Html.Label("Rating", "Rating produs")
+                        <input id="input-1" name="Rating" class="rating rating-loading" data-min="0" data-max="5" data-step="1" />
                         
+
                         <br />
                         <button class="btn btn-success " type="submit">Adauga review</button>
                     </div>

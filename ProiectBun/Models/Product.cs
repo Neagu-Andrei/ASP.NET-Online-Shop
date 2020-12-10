@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -24,14 +24,11 @@ namespace ProiectBun.Models
         public decimal Price { get; set; }
         [Required(ErrorMessage = "Categoria este obligatorie")]
         public int CategoryId { get; set; }
-        
-        //public int ReviewId { get; set; }
-        
-        //public int FileId { get; set; }
+        public int FileId { get; set; }
 
 
 
-        //public virtual File File { get; set; }
+        public virtual File File { get; set; }
         public virtual Category Category { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
 
